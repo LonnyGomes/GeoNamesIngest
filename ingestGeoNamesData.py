@@ -3,6 +3,7 @@
 # coding: utf-8
 import csv
 import sqlite3
+import sys
 
 csv.field_size_limit(1000000000)
 
@@ -25,16 +26,21 @@ def buildIndex(db_curs, table_name, col_name):
     sql = "CREATE INDEX IF NOT EXISTS '%s_idx' on '%s' ('%s' ASC)" % (col_name, table_name, col_name)
     db_curs.execute(sql)
 
+if len(sys.argv) != 2:
+    print 'Please supply Geo Names file to parse'
+    sys.exit(1)
+
+inputFile = sys.argv[1]
+
 print "Connecting to sqlite db ..."
 conn = sqlite3.connect(db_name)
 curs = conn.cursor()
 curs.execute(lite_drop)
 curs.execute(lite_schema)
 
-
 print "Processing dump ..."
 rowCount = 0
-with open('geonames-latest.txt', 'r') as csvfile:
+with open(inputFile, 'r') as csvfile:
     reader = csv.reader(csvfile, delimiter='\t')
     for row in reader:
 
