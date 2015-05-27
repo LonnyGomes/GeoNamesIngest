@@ -11,7 +11,7 @@ A python tool that ingests geo data from the National Geospatial Agency's geo na
 After downloading and extracting the latest geo names dump, run the python script
 
 ```bash
-./ingestGeoNamesData.py
+./ingestGeoNamesData.py <geo_names_dump.txt>
 ```
 
 The process can take some time, and upon completion a geonames.db file is created with a subset of all geo names data.
