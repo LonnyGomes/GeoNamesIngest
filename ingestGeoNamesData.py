@@ -14,7 +14,8 @@ geo_fields=('RC','UFI','UNI','LAT','LONG','DMS_LAT','DMS_LONG','MGRS','JOG',
             'FC','DSG','PC','CC1','ADM1','POP','ELEV','CC2','NT','LC',
             'SHORT_FORM','GENERIC','SORT_NAME_RO','FULL_NAME_RO',
             'FULL_NAME_ND_RO','SORT_NAME_RG','FULL_NAME_RG','FULL_NAME_ND_RG',
-            'NOTE','MODIFY_DATE')
+            'NOTE','MODIFY_DATE','DISPLAY','NAME_RANK','NAME_LINK','TRANSL_CD',
+            'NM_MODIFY_DATE')
 
 lite_drop = "DROP TABLE IF EXISTS geonames"
 geonames_tbl = "geonames"
