@@ -36,6 +36,17 @@ def buildIndex(db_curs, table_name, col_name):
     sql = "CREATE INDEX IF NOT EXISTS '%s_idx' on '%s' ('%s' ASC)" % (col_name, table_name, col_name)
     db_curs.execute(sql)
 
+def genRowTuple(row, col_range):
+    listData = []
+
+    #build a list of column data interpreting the values as utf8
+    for idx in col_range:
+        listData.append(row[idx].decode('utf8'))
+
+    #convert list to tuple and return
+    return tuple(listData)
+
+
 if len(sys.argv) != 2:
     print 'Please supply Geo Names file to parse'
     sys.exit(1)
@@ -62,7 +73,7 @@ with open(inputFile, 'r') as csvfile:
         if len(row) != len(geo_fields):
             print "Invalid column count:%d" % len(row)
         else:
-            curData = (row[0].decode('utf8'),row[3].decode('utf8'),row[4].decode('utf8'),row[5].decode('utf8'),row[6].decode('utf8'),row[7].decode('utf8'),row[9].decode('utf8'),row[10].decode('utf8'),row[11].decode('utf8'),row[12].decode('utf8'),row[13].decode('utf8'),row[14].decode('utf8'),row[18].decode('utf8'),row[19].decode('utf8'),row[20].decode('utf8'),row[21].decode('utf8'),row[22].decode('utf8'),row[23].decode('utf8'),row[24].decode('utf8'),row[25].decode('utf8'),row[26].decode('utf8'),row[27].decode('utf8'))
+            curData = genRowTuple(row, [0, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
             curs.execute(lite_insert_sql, curData)
 
         rowCount +=1
