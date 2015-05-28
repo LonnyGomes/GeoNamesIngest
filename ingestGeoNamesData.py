@@ -4,6 +4,7 @@
 import csv
 import sqlite3
 import sys
+from datetime import datetime
 
 csv.field_size_limit(1000000000)
 
@@ -60,6 +61,7 @@ curs.execute(lite_drop)
 curs.execute(lite_schema)
 
 print "Processing dump ..."
+start_time = datetime.now()
 rowCount = 0
 with open(inputFile, 'r') as csvfile:
     reader = csv.reader(csvfile, delimiter='\t')
@@ -82,7 +84,11 @@ print "Completed database import ..."
 print "Building indexes ..."
 buildIndex(curs,geonames_tbl, 'SORT_NAME_RO')
 
-print "Row count is:%d" % rowCount
+#save end time
+end_time = datetime.now()
+
+print "Row count: %d" % rowCount
+print "Total time: %s" % (end_time - start_time)
 
 conn.commit()
 conn.close()
