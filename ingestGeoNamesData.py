@@ -9,18 +9,28 @@ csv.field_size_limit(1000000000)
 
 db_name='geonames.db'
 
-geo_fields=('RC','UFI','UNI','LAT','LONG','DMS_LAT','DMS_LONG','MGRS','JOG','FC','DSG','PC','CC1','ADM1','POP','ELEV','CC2','NT','LC','SHORT_FORM','GENERIC','SORT_NAME_RO','FULL_NAME_RO','FULL_NAME_ND_RO','SORT_NAME_RG','FULL_NAME_RG','FULL_NAME_ND_RG','NOTE','MODIFY_DATE')
+geo_fields=('RC','UFI','UNI','LAT','LONG','DMS_LAT','DMS_LONG','MGRS','JOG',
+            'FC','DSG','PC','CC1','ADM1','POP','ELEV','CC2','NT','LC',
+            'SHORT_FORM','GENERIC','SORT_NAME_RO','FULL_NAME_RO',
+            'FULL_NAME_ND_RO','SORT_NAME_RG','FULL_NAME_RG','FULL_NAME_ND_RG',
+            'NOTE','MODIFY_DATE')
 
 lite_drop = "DROP TABLE IF EXISTS geonames"
 geonames_tbl = "geonames"
 lite_schema = \
 "CREATE TABLE geonames(\
-    geoname_id INTEGER PRIMARY KEY AUTOINCREMENT, RC NUMERIC, lat NUMERIC, long NUMERIC, dms_lat TEXT,\
-    dms_long TEXT, mgrs TEXT, fc TEXT, dsg TEXT, pc TEXT, cc1 TEXT, adm1pop TEXT, elev TEXT, short_form TEXT, generic TEXT,\
-    sort_name_ro TEXT, full_name_ro TEXT, full_name_nd_ro TEXT, sort_name_rg TEXT,\
-    full_name_rg TEXT, full_name_nd_rg TEXT, note TEXT, modify_date TEXT);"
+    geoname_id INTEGER PRIMARY KEY AUTOINCREMENT, RC NUMERIC, lat NUMERIC,\
+    long NUMERIC, dms_lat TEXT, dms_long TEXT, mgrs TEXT, fc TEXT, dsg TEXT,\
+    pc TEXT, cc1 TEXT, adm1pop TEXT, elev TEXT, short_form TEXT, generic TEXT,\
+    sort_name_ro TEXT, full_name_ro TEXT, full_name_nd_ro TEXT,\
+    sort_name_rg TEXT, full_name_rg TEXT, full_name_nd_rg TEXT, note TEXT,\
+    modify_date TEXT);"
 
-lite_insert_sql = "INSERT INTO geonames (rc, lat,long,dms_lat,dms_long,mgrs,fc,dsg,pc,cc1,adm1pop,elev,short_form,generic,sort_name_ro,full_name_ro,full_name_nd_ro,sort_name_rg,full_name_rg,full_name_nd_rg,note,modify_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+lite_insert_sql = "INSERT INTO geonames (\
+    rc, lat,long,dms_lat,dms_long,mgrs,fc,dsg,pc,cc1,adm1pop,elev,short_form,\
+    generic,sort_name_ro,full_name_ro,full_name_nd_ro,sort_name_rg,\
+    full_name_rg,full_name_nd_rg,note,modify_date) \
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 
 def buildIndex(db_curs, table_name, col_name):
     sql = "CREATE INDEX IF NOT EXISTS '%s_idx' on '%s' ('%s' ASC)" % (col_name, table_name, col_name)
